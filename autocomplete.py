@@ -28,7 +28,7 @@ def init_db0(json_data):
 
     
 def init_db1(json_data):
-    with open(json_data, 'r', encoding='utf-8') as f:
+    with open(json_data, 'r') as f:
         data = json.load(f)
         for product in data:
             product_name = product['name']

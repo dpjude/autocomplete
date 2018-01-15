@@ -4,7 +4,7 @@ import uuid
 import random
 import redis
 
-redishost = '10.146.0.2'
+redishost = '10.146.0.3'
 #redishost = '192.168.56.2'
 redisport = '6379'
 conn0 = redis.StrictRedis(host=redishost, port=redisport, db=0)

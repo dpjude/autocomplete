@@ -1,6 +1,7 @@
 from flask import Flask, Response, render_template, request, jsonify
 import json,sys
-from autocomplete import complete
+from autocomplete import ac_tri_angle
+from autocomplete import ac_inverted_index
 
 
 app = Flask(__name__)

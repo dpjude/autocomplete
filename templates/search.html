@@ -19,16 +19,33 @@
       $( "#log" ).scrollTop( 0 );
     }
  
-    $( "#birds" ).autocomplete({
+    $( "#Tri-angle" ).autocomplete({
       source: function( request, response ) {
         $.ajax( {
-          url: "/autocomplete",
+          url: "/tri-angle",
           dataType: "json",
           data: {
             term: request.term
           },
           success: function( data ) {
-		    console.log('data is returned from flask');
+            response( data );
+          }
+        } );
+      },
+      minLength: 2,
+      select: function( event, ui ) {
+        log( "Selected: " + ui.item.value);
+      }
+
+	  $( "#Inverted-Index" ).autocomplete({
+      source: function( request, response ) {
+        $.ajax( {
+          url: "/inverted-index",
+          dataType: "json",
+          data: {
+            term: request.term
+          },
+          success: function( data ) {
             response( data );
           }
         } );
@@ -44,12 +61,17 @@
 <body>
  
 <div class="ui-widget">
-  <label for="birds"></label>
-  <input id="birds" style="width: 1000px">
+  <label for="Tri-angle">Tri-angle Data Structure:</label><br>
+  <input id="Tri-angle" style="width: 1000px">
 </div>
- 
+
+<div class="ui-widget">
+  <label for="Inverted-Index">Inverted-Index Data Structure:</label><br>
+  <input id="Inverted-Index" style="width: 1000px">
+</div>
+
 <div class="ui-widget" style="margin-top:2em; font-family:Arial">
-  Result:
+  Products Selected:
   <div id="log" style="height: 400px; width: 1000px; overflow: auto;" class="ui-widget-content"></div>
 </div>
  

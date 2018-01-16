@@ -43,7 +43,7 @@ def init_db1(json_data):
     return
 
 	
-def complete(prefix):
+def ac_tri_angle(prefix):
     count = -1
     records = 0
     results = []
@@ -75,8 +75,6 @@ def complete(prefix):
     
     for final_entry in final_result:
         results.append(final_entry.decode("utf-8"))
-        if(len(results) >= 10):
-            break
 		
     conn1.expire('result' + id, 30)
     conn1.expire('finalzset' + id, 30)
@@ -84,11 +82,17 @@ def complete(prefix):
     return results
     
 	
-def autocomplete_on_prefix(prefix):
-    zset1 = conn0.zrange(prefix, 0, -1)
-    results = []
-    for entry in zset1:
-        results.append(entry.decode("utf-8"))
+def ac_inverted_index(prefix):
+    id = str(uuid.uuid4())
+	results = []
+	
+	conn1.zinterstore('finalzset' + id, ['product', prefix])
+    final_result = conn1.zrevrangebyscore('finalzset' + id, '+inf', '-inf', start=0, num=10)
+	
+    for final_entry in final_result:
+        results.append(final_entry_entry.decode("utf-8"))
+
+    conn1.expire('finalzset' + id, 30)
     return results
 
 	
@@ -97,11 +101,8 @@ def increase_score(product):
     return
 
 
-def autoComplete():
-  print(complete(sys.argv[1]))
-  
-    
 if __name__ == '__main__':
     #init_db0(json_data)
     #init_db1(json_data)
-    #autoComplete()
+    print(ac_tri_angle(sys.argv[1])))
+    print(ac_inverted_index(sys.argv[1])))

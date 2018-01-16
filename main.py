@@ -1,17 +1,20 @@
 from flask import Flask, Response, render_template, request, jsonify
 import json,sys
-#from autocomplete import complete
 from autocomplete import complete
 
 
 app = Flask(__name__)
 
 	
-@app.route('/autocomplete', methods=['GET', 'POST'])
-def autocomplete():
+@app.route('/tri-angle', methods=['GET', 'POST'])
+def ac_tri_angle():
     search = request.args.get('term')
-    app.logger.debug(complete(search))
-    return Response(json.dumps(complete(search)), mimetype='application/json')
+    return Response(json.dumps(ac_tri_angle(search)), mimetype='application/json')
+
+@app.route('/inverted-index', methods=['GET', 'POST'])
+def ac_inverted_index():
+    search = request.args.get('term')
+    return Response(json.dumps(ac_inverted_index(search)), mimetype='application/json')
 
 	
 @app.route('/')

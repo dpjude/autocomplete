@@ -34,26 +34,27 @@
       select: function( event, ui ) {
         log( "Selected: " + ui.item.value);
       }
-
-	  $( "#Inverted-Index" ).autocomplete({
-      source: function( request, response ) {
-        $.ajax( {
-          url: "/inverted-index",
-          dataType: "json",
-          data: {
-            term: request.term
-          },
-          success: function( data ) {
-            response( data );
-          }
-        } );
-      },
-      minLength: 2,
-      select: function( event, ui ) {
-        log( "Selected: " + ui.item.value);
-      }
-    } );
-  } );
+	} );
+	
+	$( "#Inverted-Index" ).autocomplete({
+		source: function( request, response ) {
+		$.ajax( {
+		  url: "/inverted-index",
+		  dataType: "json",
+		  data: {
+			term: request.term
+		  },
+		  success: function( data ) {
+			response( data );
+		  }
+		} );
+		},
+		minLength: 2,
+			select: function( event, ui ) {
+			log( "Selected: " + ui.item.value);
+		}
+	} );
+  })
   </script>
 </head>
 <body>

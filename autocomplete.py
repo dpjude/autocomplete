@@ -4,7 +4,7 @@ import uuid
 import random
 import redis
 
-redishost = '10.146.0.3'
+redishost = '192.168.56.2'
 redisport = '6379'
 conn0 = redis.StrictRedis(host=redishost, port=redisport, db=0)
 conn1 = redis.StrictRedis(host=redishost, port=redisport, db=1)
@@ -48,7 +48,7 @@ def ac_tri_angle(prefix):
     results = []
     grab = 42
     id = str(uuid.uuid4())
-    
+    print(id)
     start = conn1.zrank('prefix',prefix)
     if not start:
         return []
@@ -82,6 +82,7 @@ def ac_tri_angle(prefix):
 def ac_inverted_index(prefix):
     id = str(uuid.uuid4())
     results = []
+    print(id)
 	
     conn0.zinterstore('finalzset' + id, ['product', prefix])
     final_result = conn0.zrevrangebyscore('finalzset' + id, '+inf', '-inf', start=0, num=10)

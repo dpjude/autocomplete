@@ -4,8 +4,7 @@ import uuid
 import random
 import redis
 
-redishost = '35.194.109.206'
-#redishost = '192.168.56.2'
+redishost = '10.146.0.3'
 redisport = '6379'
 conn0 = redis.StrictRedis(host=redishost, port=redisport, db=0)
 conn1 = redis.StrictRedis(host=redishost, port=redisport, db=1)
@@ -18,10 +17,10 @@ def init_db0(json_data):
         for product in data:
             product_name = product['name']
             if product_name:
-                conn0.zadd('product', 0, product_name.lower())
-                for i in range(0,len(product_name)):
-                    prefix = product_name[0:i+1].lower()
-                    conn0.zadd(prefix, 0, product_name)
+                conn0.zadd('product', random.randint(0,10000), product_name)
+#                for i in range(0,len(product_name)):
+#                    prefix = product_name[0:i+1].lower()
+#                    conn0.zadd(prefix, 0, product_name)
             else:
                 continue
     return
@@ -49,7 +48,6 @@ def ac_tri_angle(prefix):
     results = []
     grab = 42
     id = str(uuid.uuid4())
-    print(id)
     
     start = conn1.zrank('prefix',prefix)
     if not start:
@@ -66,7 +64,6 @@ def ac_tri_angle(prefix):
                 count = records
                 break
             if entry[-1] == "%" and records != count:
-                #print(entry)
                 records += 1
                 conn1.zadd('result' + id, 0, entry[0:-1])
   
@@ -84,15 +81,15 @@ def ac_tri_angle(prefix):
 	
 def ac_inverted_index(prefix):
     id = str(uuid.uuid4())
-	results = []
+    results = []
 	
-	conn1.zinterstore('finalzset' + id, ['product', prefix])
-    final_result = conn1.zrevrangebyscore('finalzset' + id, '+inf', '-inf', start=0, num=10)
+    conn0.zinterstore('finalzset' + id, ['product', prefix])
+    final_result = conn0.zrevrangebyscore('finalzset' + id, '+inf', '-inf', start=0, num=10)
 	
     for final_entry in final_result:
-        results.append(final_entry_entry.decode("utf-8"))
+        results.append(final_entry.decode("utf-8"))
 
-    conn1.expire('finalzset' + id, 30)
+    conn0.expire('finalzset' + id, 30)
     return results
 
 	
@@ -104,5 +101,5 @@ def increase_score(product):
 if __name__ == '__main__':
     #init_db0(json_data)
     #init_db1(json_data)
-    print(ac_tri_angle(sys.argv[1])))
-    print(ac_inverted_index(sys.argv[1])))
+    print(ac_tri_angle(sys.argv[1]))
+    print(ac_inverted_index(sys.argv[1]))

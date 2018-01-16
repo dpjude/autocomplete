@@ -10,11 +10,13 @@ app = Flask(__name__)
 @app.route('/tri-angle', methods=['GET', 'POST'])
 def tri_angle():
     search = request.args.get('term')
+    app.logger.debug("In main.py tri_angle(), the search term is :" + search)
     return Response(json.dumps(ac_tri_angle(search)), mimetype='application/json')
 
 @app.route('/inverted-index', methods=['GET', 'POST'])
 def inverted_index():
     search = request.args.get('term')
+    app.logger.debug("In main.py inverted_index(), the search term is :" + search)
     return Response(json.dumps(ac_inverted_index(search)), mimetype='application/json')
 
 	

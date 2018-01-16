@@ -18,9 +18,9 @@ def init_db0(json_data):
             product_name = product['name']
             if product_name:
                 conn0.zadd('product', random.randint(0,10000), product_name)
-#                for i in range(0,len(product_name)):
-#                    prefix = product_name[0:i+1].lower()
-#                    conn0.zadd(prefix, 0, product_name)
+                for i in range(0,len(product_name)):
+                    prefix = product_name[0:i+1].lower()
+                    conn0.zadd(prefix, 0, product_name)
             else:
                 continue
     return

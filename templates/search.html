@@ -31,25 +31,6 @@
         log( "Selected: " + ui.item.value);
       }
 	} );
-	
-	$( "#Inverted-Index" ).autocomplete({
-		source: function( request, response ) {
-		$.ajax( {
-		  url: "/inverted-index",
-		  dataType: "json",
-		  data: {
-			term: request.term
-		  },
-		  success: function( data ) {
-			response( data );
-		  }
-		} );
-		},
-		minLength: 2,
-			select: function( event, ui ) {
-			log( "Selected: " + ui.item.value);
-		}
-	} );
   })
   </script>
 </head>
@@ -59,11 +40,6 @@
 <div class="ui-widget" style="margin-left:6%;">
   <label for="Tri-angle">Triangle Data Structure:</label><br>
   <input id="Tri-angle" style="width: 900px">
-</div>
-
-<div class="ui-widget" style="margin-left:6%;">
-  <label for="Inverted-Index">Inverted-Index Data Structure:</label><br>
-  <input id="Inverted-Index" style="width: 900px">
 </div>
 
 <div class="ui-widget" style="margin-top:2em; font-family:Arial; margin-left:6%;">
